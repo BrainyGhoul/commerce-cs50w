@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'create_listing' %}" method="post">
+            {% csrf_token %}
+            <div><label class="line_label" for="title">Title:</label></div>
+            <input class="line_input" name="title" type="text" placeholder="Title" maxlength="128" required>
+            <div><label class="line_label" for="description">Listing description:</label></div>
+            <textarea required name="description" class="area line_input" rows="10" placeholder="Description"></textarea>
+            <div><label class="line_label" for="starting_bid">Starting Bid:</label></div>
+            <div class="line_input" id="price_input">$<input id="price" type="number" required name="starting_bid" placeholder="Starting bid"></div>
+            <div><label class="line_label" for="picture_url">Picture URL(optional)</label></div>
+            <input type="url" name="picture_url" class="line_input" placeholder="URL">
+            <div><label class="line_label" for="category">Category(optional)</label></div>
+            <input type="text" name="category" class="line_input" placeholder="Category">
+            <div><input type="submit" class="btn btn-primary line_submit"></div>
+        </form>
+    {% else %}
+        <h4 class="alert alert-danger center">To post a listing, you need to first make an account</h4>
+    {% endif %}
+
+{% endblock %}

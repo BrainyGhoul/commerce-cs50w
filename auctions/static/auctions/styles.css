@@ -1,0 +1,160 @@
+body {
+    padding: 10px;
+}
+
+.center {
+    margin: 0px auto 0px auto;
+    width: max-content;
+}
+.line_label {
+    margin-left: 10%;
+    font-weight: bold;
+}
+
+.line_input {
+    margin: 10px 20% 10px;
+    border-radius: 2px;
+    border: 1px solid #b9b9b9;
+    border-top: 1px solid rgb(42, 42, 42);
+}
+.line_input:focus{
+    outline: 1px solid black;
+}
+#price {
+    border: none;
+}
+#price_input {
+    padding-left: 3px;
+    height: 30px;
+    width: max-content;
+}
+#price:focus{
+    outline: none;
+}
+.line_submit {
+    margin: 5px 55%;
+}
+.area {
+    width: 40%;
+}
+.listing_div {
+    box-shadow: 1px 1px 10px 1px rgb(167, 167, 167);
+    margin: 20px 30% 0px 20%;
+    padding: 2% 20px 2% 20px;
+}
+.inner_div {
+    
+    display: flex;
+    flex-wrap: wrap;
+}
+.pic_small{
+    margin-right: 10px;
+    display: inline-block;
+    max-width: 40%;
+    max-height: 25%;
+    width: auto;
+    height: auto;
+}
+.listing_details {
+    display: inline-block;
+    position: relative;
+}
+.mid_line {
+    position: absolute;
+    left: 0%;
+    top: 5%;
+    bottom: 5%;
+    width: 1px;
+    background-color: rgb(184, 184, 184);
+}
+.listing_info {
+    margin-top: 10px;
+    margin-left: 15px;
+}
+.listing_div>p {
+    margin-top: 20px;
+    display: block;
+}
+#disp_price{
+    color: #3d3d39;
+    font-size: 20px;
+}
+.picture_div {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.picture_page {
+    height: 400px;
+}
+#page_title {
+    margin: 10px;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+#bid_info {
+    text-align: center;
+    font-size: 30px;
+}
+#bid_info div {
+    margin: 50px;
+    text-align: center;
+    display: inline-block;
+}
+#bid_info div>span {
+    display: block;
+}
+.nums {
+    font-size: 25px;
+}
+#page_details {
+    text-align: center;
+}
+#page_details > span {
+    font-size: 30px;
+}
+#page_details table {
+    margin-right: auto;
+    margin-left: auto;
+}
+td, th {
+    font-size: 20px;
+    padding: 10px;
+}
+#bid {
+    text-align: center;
+    padding: 20px 0px 20px 0px;
+}
+#bid_input {
+    display: inline;
+    padding: 5px;
+    margin: 0px;
+    margin-right: 20px;
+}
+#write_comment {
+    display: inline-block;
+    height: auto;
+    margin-bottom: 20px;
+}
+#comment_area {
+    display: block;
+    margin-left: 0px;
+}
+#rating_input {
+    width: 40px;
+    height: 20px;
+
+}
+#rating_input:focus {
+    outline: 0px;
+}
+.comment {
+    text-align: left;
+    width: 50%;
+}
+.comment>div {
+    margin-left: 50px;
+}
+.category_list {
+    font-size: 50px;
+}

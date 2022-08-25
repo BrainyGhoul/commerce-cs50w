@@ -1,0 +1,16 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+
+    {% if not user.is_authenticated %}
+        <h1 class="alert alert-danger">You must "sign in" before you close this listing</h1>
+    {% elif condition %}
+        <h1 class="alert alert-success">The listing has successfully been closed</h1>
+    {% elif not condition %}
+        <h1 class="alert alert warning">You are not authorized to close this listing</h1>
+    {% endif %}
+
+    <div style="font-size: 30px;"><a href="{% url 'view_listing' listing.id %}">Go back to the listing</a></div>
+
+
+{% endblock %}

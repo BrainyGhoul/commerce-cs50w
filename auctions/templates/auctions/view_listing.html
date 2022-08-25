@@ -1,0 +1,127 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    {% if content.seller == user and content.active == True %}
+        <div class="alert alert-success">If you want to close this listing, <a href="{% url 'close_listing' content.id %}">Click here</a></div>
+
+    {% elif user == current_bid.bidder and content.active == False %}
+    <hr>
+    <div class="alert alert-success">Congradulations! The listing have won the auction at {{ current_bid.bid_price }}$</div>
+
+    {% elif content.active == False %}
+        <div class="alert alert-warning" >This listing has closed</div>
+    {% endif %}
+
+    <div id="page_title">{{ content.title }}</div>
+    {% if content not in watchlist and user.is_authenticated %}
+        <form action="{% url 'view_listing' content.id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="watchlist" value="add">
+            <input type="submit" class="btn btn-primary" value="Add to watchlist">
+        </form>
+    {% elif user.is_authenticated %}
+    <form action="{% url 'view_listing' content.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="watchlist" value="remove">
+        <input type="submit" class="btn btn-primary" value="Remove from watchlist">
+    </form>
+    {% endif %}
+        
+
+    <div class="picture_div"><img class="picture_page" src="{{ content.picture_url }}" alt="picture"></div>
+    <hr>
+    <div id="page_details">
+        <span>Details</span>
+        <table>
+            <tr>
+                <th>Seller:</th>
+                <td>{{ content.seller.username }}</td>
+            </tr>
+            <tr>
+                <th>Category:</th>
+                {% if content.category %}
+                    <td>{{ content.category }}</td>
+                {% else %}
+                    <td>The category is not available for this listing</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Description:</th>
+                <td>{{ content.description }}</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+
+    {% if content.active == True %}
+        <div id="bid_info">
+            <div>
+                <span>Starting Bid</span>
+                <span class="nums">{{ content.starting_bid }}$</span>
+            </div>
+            <div>
+                <span>Current Bid</span>
+                {% if not current_bid %}
+                    <span class="nums">No bid placed.</span>
+                {% else %}
+                    <span class="nums">{{ current_bid.bid_price }}$</span>
+                {% endif %}
+            </div>
+        </div>
+        {% if user != content.seller %}
+            <hr>
+            {% if user.is_authenticated %}
+                {% if reject %}
+                    <div class="alert alert-danger" style="text-align: center;">
+                        Please place a bid higher than the current one.
+                    </div>
+                {% endif %}
+                <form id="bid" action="{% url 'view_listing' content.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="line_input" id="bid_input">$<input id="price" type="number" required name="bid_price" placeholder="Bid Price"></div>
+                    <input type="submit" class="btn btn-primary">
+                </form>
+            {% else %}
+                <div class="alert alert-danger" style="text-align: center;">
+                    You must "sign in" in order to place a bid
+                </div>
+            {% endif %}
+        {% endif %}
+
+
+    {% elif content.active == False %}
+
+        <hr>
+        <h3>The listing was sold to {{ current_bid.bidder.username }} at <strong>{{ current_bid.bid_price }}$</strong></h3>
+    {% endif %}
+
+    <hr>
+    <div style="text-align: center;"><span style="font-size: 30px;">Comments</span></div>
+    <div class="comments">
+        {% if user.is_authenticated and user != content.seller %}
+            <div >
+                <form action="{% url 'view_listing' content.id %}" method="POST" id="write_comment">
+                    {% csrf_token %}
+                    <textarea required name="comment_text" class="line_input" id="comment_area" cols="60" rows="2" placeholder="Type your comment here"></textarea>
+                        <label for="rating">How would you rate this product?</label>
+                        <div><input type="number" id="rating_input" max="5" step="0.1" required name="rating">/5.0</div>
+                    <div style="text-align: right;">
+                        <input type="submit" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+            <hr>
+        {% endif %}
+        {% for comment in comments %}
+            <div class="comment">
+                <strong>{{ comment.comment_from.username }}</strong>
+                <div>
+                    {{ comment.rating }}/5.0
+                    <br>
+                    {{ comment.comment }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
